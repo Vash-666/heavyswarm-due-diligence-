@@ -9,6 +9,13 @@ from fastapi.responses import JSONResponse
 
 from heavyswarm.api.routes import diligence, health, webhooks
 from heavyswarm.core.config import settings
+from heavyswarm.services.database import db_service
+from heavyswarm.services.background_tasks import (
+    BackgroundTaskManager,
+    set_task_manager,
+)
+from heavyswarm.services.llm_client import LLMClient
+from heavyswarm.core.orchestrator_factory import create_orchestrator_factory
 from heavyswarm.utils.logger import get_logger, setup_logging
 
 logger = get_logger(__name__)
@@ -33,10 +40,55 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
         },
     )
     
+    # Initialize database
+    try:
+        await db_service.connect()
+        logger.info("Database connected successfully")
+    except Exception as e:
+        logger.error(f"Failed to connect to database: {e}")
+        # Continue without database - endpoints will fail gracefully
+    
+    # Initialize LLM client
+    llm_client = LLMClient(settings)
+    
+    # Initialize background task manager
+    try:
+        orchestrator_factory = create_orchestrator_factory(
+            db_service=db_service,
+            llm_client=llm_client,
+            max_concurrent=settings.max_concurrent_diligences,
+        )
+        
+        task_manager = BackgroundTaskManager(
+            db_service=db_service,
+            orchestrator_factory=orchestrator_factory.create_orchestrator,
+            max_concurrent=settings.max_concurrent_diligences,
+        )
+        
+        set_task_manager(task_manager)
+        logger.info("Background task manager initialized")
+    except Exception as e:
+        logger.error(f"Failed to initialize task manager: {e}")
+        task_manager = None
+    
     yield
     
     # Shutdown
     logger.info("HeavySwarm Due Diligence Engine shutting down")
+    
+    # Shutdown task manager
+    if task_manager:
+        try:
+            await task_manager.shutdown(wait=True, timeout=30.0)
+        except Exception as e:
+            logger.error(f"Error shutting down task manager: {e}")
+    
+    # Disconnect database
+    try:
+        await db_service.disconnect()
+        logger.info("Database disconnected")
+    except Exception as e:
+        logger.error(f"Error disconnecting from database: {e}")
 
 
 # Create FastAPI app

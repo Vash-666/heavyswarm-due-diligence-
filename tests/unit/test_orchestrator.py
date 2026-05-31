@@ -1,18 +1,9 @@
 """Tests for orchestrator."""
 
 import pytest
+from unittest.mock import MagicMock, AsyncMock
 
-from heavyswarm.agents import (
-    FinancialAnalystAgent,
-    QualityGuardianAgent,
-    QuestionGeneratorAgent,
-    ResearcherAgent,
-    RiskAnalystAgent,
-    StrategistAgent,
-    VerifierAgent,
-    WriterAgent,
-)
-from heavyswarm.core.agent_base import AgentConfig
+from heavyswarm.core.agent_base import AgentConfig, AgentOutput
 from heavyswarm.core.enums import AgentPhase
 from heavyswarm.core.orchestrator import HeavySwarmOrchestrator
 
@@ -30,18 +21,20 @@ class TestHeavySwarmOrchestrator:
         )
     
     @pytest.fixture
-    def agents(self, agent_config):
-        """Create all agents."""
-        return {
-            AgentPhase.QUESTION_GENERATOR: QuestionGeneratorAgent(agent_config),
-            AgentPhase.RESEARCHER: ResearcherAgent(agent_config),
-            AgentPhase.FINANCIAL_ANALYST: FinancialAnalystAgent(agent_config),
-            AgentPhase.RISK_ANALYST: RiskAnalystAgent(agent_config),
-            AgentPhase.STRATEGIST: StrategistAgent(agent_config),
-            AgentPhase.VERIFIER: VerifierAgent(agent_config),
-            AgentPhase.WRITER: WriterAgent(agent_config),
-            AgentPhase.QUALITY_GUARDIAN: QualityGuardianAgent(agent_config),
-        }
+    def mock_agents(self):
+        """Create mock agents for all phases."""
+        agents = {}
+        for phase in AgentPhase:
+            mock_agent = MagicMock()
+            mock_agent.phase = phase
+            mock_agent.run_with_timeout = AsyncMock(return_value=AgentOutput(
+                phase=phase,
+                data={"test": f"data for {phase.name}"},
+                confidence=0.9,
+                processing_time_ms=100,
+            ))
+            agents[phase] = mock_agent
+        return agents
     
     @pytest.fixture
     def mock_state_manager(self):
@@ -59,10 +52,10 @@ class TestHeavySwarmOrchestrator:
         return manager
     
     @pytest.fixture
-    def orchestrator(self, agents, mock_state_manager):
+    def orchestrator(self, mock_agents, mock_state_manager):
         """Create orchestrator fixture."""
         return HeavySwarmOrchestrator(
-            agents=agents,
+            agents=mock_agents,
             state_manager=mock_state_manager,
             max_concurrent=10,
         )
@@ -93,10 +86,6 @@ class TestHeavySwarmOrchestrator:
     @pytest.mark.asyncio
     async def test_execute_phase(self, orchestrator, sample_thesis):
         """Test single phase execution."""
-        from datetime import datetime
-        
-        state = sample_thesis  # This is actually a thesis, need to fix
-        # Actually sample_thesis is an InvestmentThesis, we need DiligenceState
         from heavyswarm.core.state import DiligenceState
         
         state = DiligenceState(thesis=sample_thesis)
@@ -104,13 +93,46 @@ class TestHeavySwarmOrchestrator:
         await orchestrator._execute_phase(state, AgentPhase.QUESTION_GENERATOR)
         
         assert AgentPhase.QUESTION_GENERATOR in state.phase_results
-        assert state.phase_results[AgentPhase.QUESTION_GENERATOR].confidence > 0
+        assert state.phase_results[AgentPhase.QUESTION_GENERATOR].confidence == 0.9
+        
+        # Verify agent was called
+        orchestrator.agents[AgentPhase.QUESTION_GENERATOR].run_with_timeout.assert_called_once()
     
     def test_get_stats(self, orchestrator):
         """Test getting orchestrator stats."""
         stats = orchestrator.get_stats()
         
         assert "max_concurrent" in stats
+        assert stats["max_concurrent"] == 10
         assert "running_diligences" in stats
+        assert stats["running_diligences"] == 0
         assert "agents" in stats
         assert len(stats["agents"]) == 8
+    
+    @pytest.mark.asyncio
+    async def test_execute_parallel_phases(self, orchestrator, sample_thesis):
+        """Test executing parallel phases."""
+        from heavyswarm.core.state import DiligenceState
+        
+        state = DiligenceState(thesis=sample_thesis)
+        
+        phases = [AgentPhase.FINANCIAL_ANALYST, AgentPhase.RISK_ANALYST]
+        await orchestrator._execute_parallel_phases(state, phases)
+        
+        # Both phases should have results
+        assert AgentPhase.FINANCIAL_ANALYST in state.phase_results
+        assert AgentPhase.RISK_ANALYST in state.phase_results
+        
+        # Both agents should have been called
+        orchestrator.agents[AgentPhase.FINANCIAL_ANALYST].run_with_timeout.assert_called_once()
+        orchestrator.agents[AgentPhase.RISK_ANALYST].run_with_timeout.assert_called_once()
+    
+    def test_get_running_count(self, orchestrator):
+        """Test getting running count."""
+        # Initially no running diligences
+        assert orchestrator.get_running_count() == 0
+    
+    def test_semaphore_initialization(self, orchestrator):
+        """Test that semaphore is initialized with correct value."""
+        # The semaphore should be initialized with max_concurrent
+        assert orchestrator._semaphore._value == 10
