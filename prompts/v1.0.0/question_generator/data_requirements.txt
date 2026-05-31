@@ -1,0 +1,143 @@
+Define Data Requirements for {{ticker}} Analysis:
+
+## Investment Context
+Ticker: {{ticker}}
+Thesis: {{thesis}}
+Time Horizon: {{time_horizon}}
+Risk Tolerance: {{risk_tolerance}}
+Position Size: {{position_size}}%
+Priority: {{priority}}
+
+## Your Task
+Specify the exact data requirements needed to thoroughly evaluate this investment thesis. This will guide what data sources to query and what metrics to extract.
+
+### 1. Financial Data Requirements
+
+**Core Financial Statements (5-year history + projections)**
+- Income Statement: Revenue, gross profit, operating income, net income
+- Balance Sheet: Cash, debt, equity, working capital
+- Cash Flow: Operating, investing, financing cash flows
+- Free cash flow and FCF margin trends
+
+**Key Metrics to Calculate**
+- Revenue CAGR (3-year, 5-year)
+- Gross margin trend and stability
+- Operating margin vs. peers
+- ROE, ROA, ROIC
+- Debt/Equity and interest coverage
+- Current ratio and quick ratio
+
+**Valuation Inputs Needed**
+- Current market cap and enterprise value
+- P/E, P/S, P/B ratios (current and 5-year average)
+- EV/EBITDA vs. sector
+- Shares outstanding and dilution history
+
+### 2. Market Data Requirements
+
+**Price & Volume**
+- 52-week high/low
+- Average daily volume
+- Short interest % of float
+- Institutional ownership %
+- Insider ownership and recent transactions
+
+**Analyst Data**
+- Consensus price target
+- Rating distribution (buy/hold/sell)
+- Recent rating changes
+- EPS estimate revisions trend
+
+### 3. Qualitative Data Requirements
+
+**Company Profile**
+- Business model description
+- Revenue breakdown by segment/geography
+- Key products/services
+- Management team background
+- Board composition
+
+**Competitive Position**
+- Primary competitors list
+- Market share estimates
+- Competitive advantages/moats
+- Industry barriers to entry
+
+**Strategic Factors**
+- Recent M&A activity
+- R&D spending trend
+- Capital allocation strategy
+- ESG considerations
+
+### 4. Macro & Sector Data
+
+**Industry Context**
+- TAM/SAM/SOM estimates
+- Industry growth rate
+- Regulatory environment
+- Technology disruption risk
+
+**Macro Sensitivities**
+- Interest rate sensitivity
+- Currency exposure
+- Commodity price exposure
+- Economic cycle positioning
+
+### 5. Event & Catalyst Data
+
+**Upcoming Events**
+- Earnings dates (next 4 quarters)
+- Conference presentations
+- Product launches
+- Regulatory decisions
+- Contract expirations/renewals
+
+**Historical Patterns**
+- Earnings surprise history
+- Seasonality patterns
+- Post-earnings price reaction
+
+### Output Format
+```json
+{
+  "data_requirements": {
+    "ticker": "string",
+    "priority": "string",
+    "financial": {
+      "statements_required": ["string"],
+      "metrics_required": ["string"],
+      "valuation_inputs": ["string"],
+      "history_years": number,
+      "projection_years": number
+    },
+    "market": {
+      "price_data": ["string"],
+      "ownership_data": ["string"],
+      "analyst_data": ["string"]
+    },
+    "qualitative": {
+      "company_profile": ["string"],
+      "competitive": ["string"],
+      "strategic": ["string"]
+    },
+    "macro_sector": {
+      "industry_metrics": ["string"],
+      "macro_sensitivities": ["string"]
+    },
+    "events": {
+      "upcoming_catalysts": ["string"],
+      "historical_patterns": ["string"]
+    },
+    "data_sources": {
+      "primary": ["string"],
+      "secondary": ["string"],
+      "real_time": ["string"]
+    },
+    "completeness_criteria": {
+      "minimum_data_points": number,
+      "maximum_data_age_days": number,
+      "required_verification_rate": 0.0
+    }
+  }
+}
+```

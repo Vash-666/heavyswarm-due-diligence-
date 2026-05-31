@@ -1,0 +1,92 @@
+Perform Stress Testing for {{ticker}} based on the following data:
+
+## Financial Model
+{{financial_model}}
+
+## Risk Matrix
+{{risk_matrix}}
+
+## Your Task
+Conduct stress tests under 3 severe scenarios:
+
+### 1. Recession Scenario
+- GDP contraction of 3-5%
+- Unemployment spike to 8-10%
+- Consumer spending decline
+- Credit spreads widen
+- Equity markets drop 30-40%
+
+Model impact on:
+- Revenue (decline %)
+- Margins (compression)
+- Cash flow
+- Debt servicing capacity
+- Recovery time
+
+### 2. Interest Rate Shock
+- Fed funds rate increases 300-400 bps rapidly
+- 10-year Treasury rises to 5-6%
+- Corporate borrowing costs increase
+- Discount rates rise
+
+Model impact on:
+- DCF valuation (higher WACC)
+- Debt servicing costs
+- Refinancing risk
+- CapEx plans
+
+### 3. Liquidity Crisis
+- Credit markets freeze
+- Revenue drops 20%
+- Working capital squeeze
+- Limited access to capital markets
+
+Model impact on:
+- Cash runway (months)
+- Breakeven analysis
+- Cost-cutting needs
+- Survival probability
+
+### Output Format
+```json
+{
+  "stress_tests": {
+    "recession_scenario": {
+      "description": "string",
+      "assumptions": ["string"],
+      "revenue_impact": -0.XX,
+      "margin_impact": -0.XX,
+      "fcf_impact": -0.XX,
+      "valuation_impact": -0.XX,
+      "recovery_time": "X-Y months",
+      "survival_probability": 0.XX,
+      "key_vulnerabilities": ["string"]
+    },
+    "interest_rate_shock": {
+      "description": "string",
+      "assumptions": ["string"],
+      "wacc_change": 0.XX,
+      "dcf_impact": -0.XX,
+      "debt_service_increase": 0.XX,
+      "refinancing_risk": "high|medium|low",
+      "key_vulnerabilities": ["string"]
+    },
+    "liquidity_crisis": {
+      "description": "string",
+      "assumptions": ["string"],
+      "cash_runway_months": number,
+      "breakeven_revenue_decline": -0.XX,
+      "cost_cut_needed": 0.XX,
+      "survival_probability": 0.XX,
+      "key_vulnerabilities": ["string"]
+    }
+  },
+  "overall_resilience": {
+    "score": 1-10,
+    "rating": "strong|moderate|weak",
+    "key_strengths": ["string"],
+    "key_weaknesses": ["string"]
+  },
+  "confidence": 0.0-1.0
+}
+```

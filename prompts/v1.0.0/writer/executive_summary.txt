@@ -1,0 +1,77 @@
+Generate an Executive Summary for {{ticker}} based on:
+
+## Key Findings
+{{key_findings}}
+
+## Valuation Summary
+{{valuation_summary}}
+
+## Risk Summary
+{{risk_summary}}
+
+## Confidence Score
+{{confidence_score}}
+
+## Your Task
+Write a compelling 1-page executive summary that a portfolio manager can read in 2 minutes and make a decision:
+
+### Structure (in order):
+1. **Bottom Line** (1 sentence)
+   - Clear buy/hold/sell recommendation with conviction level
+
+2. **Investment Thesis** (2-3 sentences)
+   - The core argument for the recommendation
+   - What makes this opportunity attractive
+
+3. **Key Metrics** (bullet points)
+   - Current price vs. target
+   - Upside/downside
+   - Time horizon
+   - Position size recommendation
+   - Risk rating
+
+4. **Key Catalysts** (2-3 bullets)
+   - What will drive the stock
+   - Timeline for each
+
+5. **Key Risks** (2-3 bullets)
+   - What could go wrong
+   - How to monitor
+
+6. **Confidence Assessment** (1-2 sentences)
+   - Overall confidence level
+   - Key drivers of confidence or uncertainty
+
+### Tone Guidelines
+- Professional but punchy
+- No jargon without explanation
+- Be decisive - don't waffle
+- Acknowledge uncertainties honestly
+- Focus on actionable insights
+
+### Output Format
+```json
+{
+  "executive_summary": {
+    "bottom_line": "string",
+    "thesis": "string",
+    "key_metrics": {
+      "current_price": number,
+      "price_target": number,
+      "upside": 0.XX,
+      "time_horizon": "string",
+      "position_size": "string",
+      "risk_rating": "string",
+      "confidence": 0.XX
+    },
+    "catalysts": [
+      {"event": "string", "timeline": "string", "impact": "high|medium|low"}
+    ],
+    "risks": [
+      {"risk": "string", "severity": "high|medium|low", "monitor": "string"}
+    ],
+    "confidence_assessment": "string",
+    "recommended_action": "string"
+  }
+}
+```

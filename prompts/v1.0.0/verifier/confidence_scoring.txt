@@ -1,0 +1,110 @@
+Calculate Confidence Scores for {{ticker}} analysis based on the following:
+
+## Fact Check Results
+{{fact_check_results}}
+
+## Bias Detection Results
+{{bias_detection_results}}
+
+## Phase Outputs
+{{phase_outputs}}
+
+## Your Task
+Calculate comprehensive confidence scores:
+
+### 1. Phase-Level Confidence (0-1.0)
+For each phase, assess:
+- Data quality and verification level
+- Methodology soundness
+- Bias level
+- Consistency with other phases
+
+Phases to score:
+- Research Phase
+- Financial Analysis Phase
+- Risk Analysis Phase
+- Strategy Phase
+
+### 2. Overall Confidence Score (0-1.0)
+Weighted aggregation of phase scores:
+- Research: 25% (foundation for everything)
+- Financial: 25% (quantitative rigor)
+- Risk: 20% (comprehensiveness)
+- Strategy: 20% (reasoning quality)
+- Verification: 10% (meta-assessment)
+
+### 3. Confidence Components
+Break down confidence into:
+- Data confidence (source quality, verification)
+- Methodology confidence (model quality, assumptions)
+- Reasoning confidence (logical coherence, bias)
+- Consistency confidence (cross-phase alignment)
+
+### 4. Threshold Assessment
+- Target confidence: 0.85 (85%)
+- Is threshold met?
+- If not, what's the gap?
+
+### 5. Recommendations
+Specific actions to improve confidence:
+- Additional verification needed
+- Bias mitigation steps
+- Data gaps to fill
+
+### Output Format
+```json
+{
+  "confidence_score": {
+    "overall": 0.XX,
+    "threshold_met": boolean,
+    "threshold": 0.85,
+    "by_phase": {
+      "research": {
+        "score": 0.XX,
+        "factors": {
+          "data_quality": 0.XX,
+          "source_reliability": 0.XX,
+          "coverage": 0.XX
+        }
+      },
+      "financial": {
+        "score": 0.XX,
+        "factors": {
+          "model_rigor": 0.XX,
+          "assumption_quality": 0.XX,
+          "sensitivity_analysis": 0.XX
+        }
+      },
+      "risk": {
+        "score": 0.XX,
+        "factors": {
+          "comprehensiveness": 0.XX,
+          "quantification": 0.XX,
+          "stress_testing": 0.XX
+        }
+      },
+      "strategy": {
+        "score": 0.XX,
+        "factors": {
+          "scenario_quality": 0.XX,
+          "probability_reasoning": 0.XX,
+          "devils_advocate": 0.XX
+        }
+      }
+    },
+    "components": {
+      "data_confidence": 0.XX,
+      "methodology_confidence": 0.XX,
+      "reasoning_confidence": 0.XX,
+      "consistency_confidence": 0.XX
+    },
+    "confidence_drivers": {
+      "positive": ["string"],
+      "negative": ["string"]
+    },
+    "improvement_recommendations": [
+      {"action": "string", "impact": "high|medium|low", "effort": "high|medium|low"}
+    ]
+  }
+}
+```

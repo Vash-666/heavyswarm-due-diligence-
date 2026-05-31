@@ -1,0 +1,239 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "HeavySwarm Due Diligence Engine",
+    "tags": ["heavyswarm", "diligence", "ai"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Diligence Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(rate(diligence_completed_total[5m]))",
+            "legendFormat": "Diligences/min"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "min": 0
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Active Diligences",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "active_diligences",
+            "legendFormat": "Active"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "min": 0,
+            "max": 100
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Avg Confidence Score",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "avg(diligence_confidence_score)",
+            "legendFormat": "Confidence"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit",
+            "min": 0,
+            "max": 1
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0}
+      },
+      {
+        "id": 4,
+        "title": "Queue Size",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "diligence_queue_size",
+            "legendFormat": "Queue"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "min": 0
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0}
+      },
+      {
+        "id": 5,
+        "title": "Diligence Duration (p50, p95, p99)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(diligence_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "p50"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(diligence_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "p95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, sum(rate(diligence_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "p99"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Duration (s)",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4}
+      },
+      {
+        "id": 6,
+        "title": "Phase Duration by Agent",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "avg(phase_duration_seconds) by (phase)",
+            "legendFormat": "{{phase}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Duration (s)",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4}
+      },
+      {
+        "id": 7,
+        "title": "LLM Requests by Model",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(llm_requests_total[5m])",
+            "legendFormat": "{{model}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Requests/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12}
+      },
+      {
+        "id": 8,
+        "title": "LLM Cost (USD/hour)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "increase(llm_cost_usd[1h])",
+            "legendFormat": "{{model}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "USD",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12}
+      },
+      {
+        "id": 9,
+        "title": "Error Rate by Phase",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(phase_errors_total[5m])",
+            "legendFormat": "{{phase}} - {{error_type}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Errors/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 20}
+      },
+      {
+        "id": 10,
+        "title": "Circuit Breaker States",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "circuit_breaker_state",
+            "legendFormat": "{{provider}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "State (0=closed, 1=open, 2=half)",
+            "min": 0,
+            "max": 2
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 20}
+      },
+      {
+        "id": 11,
+        "title": "Data Source Latency",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "avg(data_source_latency_seconds) by (source)",
+            "legendFormat": "{{source}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Latency (s)",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 28}
+      },
+      {
+        "id": 12,
+        "title": "Webhook Delivery Status",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(webhook_deliveries_total[5m])",
+            "legendFormat": "{{status}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Deliveries/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 28}
+      }
+    ]
+  }
+}

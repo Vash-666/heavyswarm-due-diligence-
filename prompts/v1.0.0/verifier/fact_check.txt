@@ -1,0 +1,86 @@
+Perform Fact-Checking for {{ticker}} analysis based on the following data:
+
+## Research Data
+{{research_data}}
+
+## Financial Analysis
+{{financial_analysis}}
+
+## Risk Assessment
+{{risk_assessment}}
+
+## Strategy Analysis
+{{strategy_analysis}}
+
+## Your Task
+Systematically verify all factual claims in the analysis:
+
+### 1. Identify All Claims
+Extract every factual assertion:
+- Financial figures (revenue, margins, etc.)
+- Market data (market share, growth rates)
+- News events and dates
+- Analyst ratings and price targets
+- Risk assessments
+
+### 2. Verify Each Claim
+For each claim:
+- Check against primary sources
+- Look for corroborating evidence
+- Note any discrepancies
+- Flag unverifiable claims
+
+### 3. Document Discrepancies
+For any conflicting information:
+- State the claim
+- Provide the conflicting source
+- Explain the discrepancy
+- Assess materiality
+
+### 4. Calculate Verification Rate
+- Total claims checked
+- Verified claims
+- Disputed claims
+- Unverifiable claims
+
+### Output Format
+```json
+{
+  "fact_check": {
+    "summary": {
+      "total_claims": number,
+      "verified": number,
+      "disputed": number,
+      "unverifiable": number,
+      "verification_rate": 0.XX
+    },
+    "verified_claims": [
+      {
+        "claim": "string",
+        "source": "string",
+        "verified_against": "string",
+        "confidence": 0.0-1.0
+      }
+    ],
+    "disputed_claims": [
+      {
+        "claim": "string",
+        "source": "string",
+        "conflicting_source": "string",
+        "discrepancy": "string",
+        "materiality": "high|medium|low",
+        "recommendation": "string"
+      }
+    ],
+    "unverifiable_claims": [
+      {
+        "claim": "string",
+        "reason": "string",
+        "impact": "high|medium|low"
+      }
+    ],
+    "key_data_quality_issues": ["string"],
+    "overall_data_reliability": "high|medium|low"
+  }
+}
+```

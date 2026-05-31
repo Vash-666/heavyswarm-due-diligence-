@@ -1,0 +1,79 @@
+Generate the Investment Memo Structure for {{ticker}}:
+
+## Analysis Inputs
+{{analysis_inputs}}
+
+## Your Task
+Create a detailed outline and structure for the investment memo before writing the full content. This serves as the architectural blueprint.
+
+### Structure Requirements
+
+**1. Document Architecture**
+- Define section ordering and hierarchy
+- Specify word count targets per section
+- Identify required vs. optional sections
+- Plan visual elements (tables, charts)
+
+**2. Content Mapping**
+Map each analysis output to memo sections:
+- Financial analysis → Valuation section
+- Risk analysis → Risk assessment section
+- Scenario analysis → Bull/Base/Bear section
+- News/sentiment → Market context section
+- Verification results → Confidence appendix
+
+**3. Narrative Flow**
+- Hook: Opening statement that captures attention
+- Build: Logical progression of arguments
+- Peak: Investment thesis climax
+- Resolution: Clear recommendation
+
+**4. Evidence Placement**
+- Where to cite specific data points
+- How to integrate verification badges
+- Placement of confidence indicators
+- Footnote/endnote strategy
+
+**5. Risk Disclosure Strategy**
+- How to present risks without undermining thesis
+- Balancing optimism with caution
+- Tail risk placement
+- Mitigation framing
+
+### Output Format
+```json
+{
+  "memo_structure": {
+    "ticker": "string",
+    "total_target_words": number,
+    "sections": [
+      {
+        "name": "string",
+        "order": number,
+        "target_words": number,
+        "required": true|false,
+        "content_sources": ["string"],
+        "key_points": ["string"],
+        "visual_elements": ["string"],
+        "confidence_display": "string"
+      }
+    ],
+    "narrative_arc": {
+      "hook": "string",
+      "build_sequence": ["string"],
+      "climax_section": "string",
+      "resolution": "string"
+    },
+    "evidence_strategy": {
+      "inline_citations": true|false,
+      "appendix_structure": ["string"],
+      "confidence_badges": ["string"]
+    },
+    "risk_presentation": {
+      "primary_location": "string",
+      "integration_approach": "string",
+      "mitigation_emphasis": true|false
+    }
+  }
+}
+```

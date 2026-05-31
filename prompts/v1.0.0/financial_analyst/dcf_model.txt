@@ -1,0 +1,77 @@
+Build a Discounted Cash Flow (DCF) model for {{ticker}} based on the following research data:
+
+## Financial Data
+{{financial_data}}
+
+## Market Data
+{{market_data}}
+
+## Your Task
+Build a 5-year DCF model with the following components:
+
+### 1. Revenue Projections (Years 1-5)
+- Base case growth rates
+- Bull case (upside scenario)
+- Bear case (downside scenario)
+- Justify your growth assumptions
+
+### 2. Margin Assumptions
+- Gross margin trajectory
+- Operating margin trajectory
+- Consider operating leverage
+
+### 3. Free Cash Flow Calculation
+- NOPAT (Net Operating Profit After Tax)
+- Plus: Depreciation & Amortization
+- Less: Capital Expenditures
+- Less: Change in Working Capital
+- Equals: Unlevered Free Cash Flow
+
+### 4. Discount Rate (WACC)
+- Risk-free rate (use current 10-year Treasury)
+- Equity risk premium
+- Beta (from comparable companies or historical)
+- Cost of debt
+- Target capital structure
+
+### 5. Terminal Value
+- Terminal growth rate (be conservative - max 3%)
+- Gordon Growth or Exit Multiple method
+
+### 6. Sensitivity Analysis
+- Show valuation at different WACC levels (7%, 8.5%, 10%)
+- Show valuation at different terminal growth rates (2%, 2.5%, 3%)
+
+### Output Format
+```json
+{
+  "dcf": {
+    "fair_value": number,
+    "wacc": number,
+    "terminal_growth": number,
+    "projections": [
+      {"year": 1, "revenue": number, "ebitda_margin": number, "fcf": number},
+      {"year": 2, "revenue": number, "ebitda_margin": number, "fcf": number},
+      {"year": 3, "revenue": number, "ebitda_margin": number, "fcf": number},
+      {"year": 4, "revenue": number, "ebitda_margin": number, "fcf": number},
+      {"year": 5, "revenue": number, "ebitda_margin": number, "fcf": number}
+    ],
+    "terminal_value": number,
+    "enterprise_value": number,
+    "implied_equity_value": number,
+    "shares_outstanding": number,
+    "upside_downside": {
+      "bull": {"wacc": number, "growth": number, "value": number},
+      "base": {"wacc": number, "growth": number, "value": number},
+      "bear": {"wacc": number, "growth": number, "value": number}
+    },
+    "sensitivity": {
+      "wacc_7": {"tg_2": number, "tg_2_5": number, "tg_3": number},
+      "wacc_8_5": {"tg_2": number, "tg_2_5": number, "tg_3": number},
+      "wacc_10": {"tg_2": number, "tg_2_5": number, "tg_3": number}
+    },
+    "key_assumptions": ["string"],
+    "confidence": 0.0-1.0
+  }
+}
+```

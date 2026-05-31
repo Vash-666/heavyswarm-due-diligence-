@@ -1,0 +1,59 @@
+{{research_prompt}}
+
+## Your Domain: Competitive Landscape Mapping
+
+Map the competitive landscape for {{ticker}}. Focus on:
+
+### Required Analysis
+1. **Direct Competitors (3-5)**
+   - Ticker and company name
+   - Market cap comparison
+   - Revenue comparison
+   - Key differentiators
+
+2. **Market Position**
+   - Market share (if available)
+   - Industry ranking
+   - Competitive advantages (moat)
+   - Vulnerabilities
+
+3. **Competitive Dynamics**
+   - Recent competitive moves
+   - Pricing pressure
+   - Innovation race
+   - Customer switching costs
+
+4. **Industry Structure**
+   - Market size and growth
+   - Barriers to entry
+   - Supplier/buyer power
+   - Threat of substitutes
+
+### Output Format
+```json
+{
+  "peers": [
+    {
+      "ticker": "string",
+      "name": "string",
+      "market_cap": number,
+      "revenue": number,
+      "market_share": number,
+      "moat_score": 1-10,
+      "key_differentiators": ["string"]
+    }
+  ],
+  "industry_ranking": number,
+  "competitive_advantages": ["string"],
+  "vulnerabilities": ["string"],
+  "market_dynamics": {
+    "market_size": number,
+    "growth_rate": number,
+    "barriers_to_entry": "high|medium|low",
+    "competitive_intensity": "high|medium|low"
+  },
+  "sources": [
+    {"url": "string", "retrieved_at": "ISO8601", "confidence": 0.0-1.0}
+  ]
+}
+```

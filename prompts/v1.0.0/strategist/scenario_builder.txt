@@ -1,0 +1,107 @@
+Build Bull/Base/Bear Scenarios for {{ticker}} based on the following analysis:
+
+## Financial Analysis
+{{financial_analysis}}
+
+## Risk Assessment
+{{risk_assessment}}
+
+## Market Context
+{{market_context}}
+
+## Your Task
+Develop three detailed scenarios with probability-weighted expected returns:
+
+### 1. Bull Case (25-35% probability)
+What would drive the stock to outperform significantly?
+- Key assumptions that differ from consensus
+- Revenue/margin upside drivers
+- Multiple expansion potential
+- Timeline to realization
+
+### 2. Base Case (40-60% probability)
+What is the most likely outcome?
+- Consensus-aligned assumptions
+- Steady execution scenario
+- Mean reversion in multiples
+- Realistic growth trajectory
+
+### 3. Bear Case (20-35% probability)
+What could go wrong?
+- Key risk realization
+- Downside to fundamentals
+- Multiple compression
+- Timeline to downside
+
+### For Each Scenario, Provide:
+- **Thesis**: 2-3 sentence narrative
+- **Probability**: 0.XX (must sum to 1.0 across scenarios)
+- **Price Target**: Specific price 12-18 months out
+- **IRR**: Implied internal rate of return
+- **Key Drivers**: 3-5 specific factors that would cause this scenario
+- **Assumptions**: Revenue growth, margins, multiple
+- **Catalysts**: Events that would confirm the scenario
+
+### Output Format
+```json
+{
+  "scenarios": {
+    "bull": {
+      "thesis": "string",
+      "probability": 0.XX,
+      "price_target": number,
+      "current_price": number,
+      "upside": 0.XX,
+      "irr": 0.XX,
+      "key_drivers": ["string"],
+      "assumptions": {
+        "revenue_growth": "X% annually",
+        "margin_expansion": "X bps",
+        "target_multiple": "Xx EV/EBITDA"
+      },
+      "catalysts": ["string"],
+      "timeline": "string"
+    },
+    "base": {
+      "thesis": "string",
+      "probability": 0.XX,
+      "price_target": number,
+      "current_price": number,
+      "upside": 0.XX,
+      "irr": 0.XX,
+      "key_drivers": ["string"],
+      "assumptions": {
+        "revenue_growth": "X% annually",
+        "margin_expansion": "X bps",
+        "target_multiple": "Xx EV/EBITDA"
+      },
+      "catalysts": ["string"],
+      "timeline": "string"
+    },
+    "bear": {
+      "thesis": "string",
+      "probability": 0.XX,
+      "price_target": number,
+      "current_price": number,
+      "upside": 0.XX,
+      "irr": 0.XX,
+      "key_drivers": ["string"],
+      "assumptions": {
+        "revenue_growth": "X% annually",
+        "margin_compression": "X bps",
+        "target_multiple": "Xx EV/EBITDA"
+      },
+      "catalysts": ["string"],
+      "timeline": "string"
+    }
+  },
+  "expected_return": {
+    "probability_weighted": 0.XX,
+    "calculation": "(bull_prob × bull_return) + (base_prob × base_return) + (bear_prob × bear_return)",
+    "sharpe_ratio": number,
+    "max_drawdown": 0.XX,
+    "risk_adjusted_return": 0.XX
+  },
+  "confidence": 0.0-1.0
+}
+```

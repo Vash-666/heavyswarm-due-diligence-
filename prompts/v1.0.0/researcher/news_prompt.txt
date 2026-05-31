@@ -1,0 +1,54 @@
+{{research_prompt}}
+
+## Your Domain: News & Sentiment Analysis
+
+Analyze recent news and market sentiment for {{ticker}}. Focus on:
+
+### Required Analysis
+1. **Recent News (Last 90 Days)**
+   - Earnings announcements and guidance
+   - Product launches or updates
+   - Management changes
+   - M&A activity
+   - Legal/regulatory developments
+
+2. **Analyst Coverage**
+   - Current ratings (buy/hold/sell distribution)
+   - Recent rating changes
+   - Price target consensus
+   - Notable analyst comments
+
+3. **Sentiment Analysis**
+   - Overall sentiment score (-1 to +1)
+   - Sentiment trend (improving/declining/stable)
+   - Key sentiment drivers
+   - Social media buzz (if relevant)
+
+### Output Format
+```json
+{
+  "articles": [
+    {
+      "headline": "string",
+      "source": "string",
+      "date": "YYYY-MM-DD",
+      "sentiment": "positive|neutral|negative",
+      "category": "earnings|product|management|legal|other",
+      "url": "string"
+    }
+  ],
+  "aggregate_sentiment": number,
+  "sentiment_trend": "improving|declining|stable",
+  "analyst_ratings": {
+    "buy": number,
+    "hold": number,
+    "sell": number,
+    "consensus_price_target": number,
+    "recent_changes": [{"date": "YYYY-MM-DD", "change": "upgrade|downgrade", "analyst": "string"}]
+  },
+  "key_themes": ["string"],
+  "sources": [
+    {"url": "string", "retrieved_at": "ISO8601", "confidence": 0.0-1.0}
+  ]
+}
+```

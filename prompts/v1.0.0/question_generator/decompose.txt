@@ -1,0 +1,45 @@
+Decompose the following investment thesis into 4 specialized research prompts.
+
+## Investment Thesis
+Ticker: {{ticker}}
+Thesis: {{thesis}}
+Time Horizon: {{time_horizon}}
+Risk Tolerance: {{risk_tolerance}}
+Position Size: {{position_size}}%
+Priority: {{priority}}
+
+## Your Task
+Create 4 detailed, specific research prompts that will guide parallel research sub-agents. Each prompt must:
+
+1. **Financial Data Prompt**: Focus on quantitative metrics, filings, and financial health
+   - Request specific financial metrics (revenue, margins, cash flow, balance sheet)
+   - Include time-series analysis requirements
+   - Ask for peer comparison data
+   - Specify SEC filing review (10-K, 10-Q, 8-K)
+
+2. **News & Sentiment Prompt**: Focus on qualitative factors and market sentiment
+   - Request recent news analysis (last 90 days)
+   - Include analyst rating changes
+   - Ask for social media sentiment trends
+   - Look for market-moving events
+
+3. **Competitive Landscape Prompt**: Focus on market position and competition
+   - Request peer company analysis
+   - Include market share data
+   - Ask for competitive advantage assessment
+   - Review recent competitive moves
+
+4. **Market Trends Prompt**: Focus on macro and sector dynamics
+   - Request industry growth projections
+   - Include regulatory environment analysis
+   - Ask for technology disruption risks
+   - Review supply chain factors
+
+## Output Requirements
+Each prompt should be 3-5 sentences, highly specific, and include:
+- The ticker symbol
+- Key data points to gather
+- Output format requirements
+- Priority indicators based on position size
+
+Return ONLY the JSON output specified in your system instructions.

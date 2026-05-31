@@ -1,0 +1,145 @@
+{
+  "version": "1.0.0",
+  "description": "HeavySwarm Investment Due Diligence Engine - Prompt Registry",
+  "created_at": "2026-05-30",
+  "quality_equation": {
+    "prompts": 0.65,
+    "memory": 0.20,
+    "model": 0.10,
+    "tools": 0.05
+  },
+  "agents": {
+    "question_generator": {
+      "version": "1.0.0",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.3,
+      "max_tokens": 4000,
+      "files": [
+        "system.txt",
+        "decompose.txt"
+      ],
+      "input_schema": "QuestionGeneratorInput",
+      "output_schema": "QuestionGeneratorOutput",
+      "test_cases": 5
+    },
+    "researcher": {
+      "version": "1.0.0",
+      "model": "gpt-4o",
+      "temperature": 0.2,
+      "max_tokens": 8000,
+      "files": [
+        "system.txt",
+        "financial_prompt.txt",
+        "news_prompt.txt",
+        "competitor_prompt.txt",
+        "market_prompt.txt"
+      ],
+      "input_schema": "ResearcherInput",
+      "output_schema": "ResearcherOutput",
+      "parallel_agents": 4,
+      "test_cases": 10
+    },
+    "financial_analyst": {
+      "version": "1.0.0",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.1,
+      "max_tokens": 6000,
+      "files": [
+        "system.txt",
+        "dcf_model.txt",
+        "comps_analysis.txt",
+        "precedent_transactions.txt"
+      ],
+      "input_schema": "FinancialAnalystInput",
+      "output_schema": "FinancialAnalystOutput",
+      "test_cases": 8
+    },
+    "risk_analyst": {
+      "version": "1.0.0",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.2,
+      "max_tokens": 5000,
+      "files": [
+        "system.txt",
+        "risk_matrix.txt",
+        "stress_test.txt"
+      ],
+      "input_schema": "RiskAnalystInput",
+      "output_schema": "RiskAnalystOutput",
+      "test_cases": 6
+    },
+    "strategist": {
+      "version": "1.0.0",
+      "model": "gpt-4o",
+      "temperature": 0.3,
+      "max_tokens": 6000,
+      "files": [
+        "system.txt",
+        "scenario_builder.txt",
+        "devils_advocate.txt"
+      ],
+      "input_schema": "StrategistInput",
+      "output_schema": "StrategistOutput",
+      "test_cases": 7
+    },
+    "verifier": {
+      "version": "1.0.0",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.1,
+      "max_tokens": 8000,
+      "files": [
+        "system.txt",
+        "fact_check.txt",
+        "bias_detection.txt",
+        "confidence_scoring.txt"
+      ],
+      "input_schema": "VerifierInput",
+      "output_schema": "VerifierOutput",
+      "test_cases": 10
+    },
+    "writer": {
+      "version": "1.0.0",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.2,
+      "max_tokens": 10000,
+      "files": [
+        "system.txt",
+        "memo_template.txt",
+        "executive_summary.txt",
+        "trading_signal.txt"
+      ],
+      "input_schema": "WriterInput",
+      "output_schema": "WriterOutput",
+      "test_cases": 5
+    },
+    "qualityguardian": {
+      "version": "1.0.0",
+      "model": "gpt-4o",
+      "temperature": 0.1,
+      "max_tokens": 4000,
+      "files": [
+        "system.txt",
+        "quality_review.txt"
+      ],
+      "input_schema": "QualityGuardianInput",
+      "output_schema": "QualityGuardianOutput",
+      "trigger_conditions": [
+        "confidence < 0.85",
+        "risk_score > 70",
+        "position_size > 0.05",
+        "anomaly_detected"
+      ],
+      "test_cases": 5
+    }
+  },
+  "testing": {
+    "a_b_testing_enabled": true,
+    "canary_percentage": 10,
+    "rollback_threshold": 0.80
+  },
+  "metadata": {
+    "total_prompts": 25,
+    "estimated_tokens_per_diligence": 45000,
+    "average_latency_target_seconds": 300
+  }
+}

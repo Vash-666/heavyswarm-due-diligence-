@@ -1,0 +1,70 @@
+Perform Devil's Advocate Analysis for {{ticker}} based on the following:
+
+## Investment Thesis
+{{thesis}}
+
+## Bullish Arguments
+{{bullish_arguments}}
+
+## Your Task
+Provide a genuine contrarian perspective that challenges the bullish thesis:
+
+### 1. Contrarian Thesis
+What is the strongest bearish case that bulls are ignoring?
+- Challenge the core investment thesis
+- Question key assumptions
+- Identify blind spots in the analysis
+
+### 2. Ignored Risks
+What risks are being underweighted or dismissed?
+- Risks that haven't been fully considered
+- Black swan scenarios
+- Correlated risks that compound
+
+### 3. Valuation Concerns
+Why might the valuation be stretched?
+- Comparison to historical multiples
+- Comparison to peers
+- Assumptions embedded in current price
+- Margin of safety analysis
+
+### 4. Timing Issues
+Why might the thesis be right but timing be wrong?
+- Cyclical factors
+- Adoption curve timing
+- Competitive response lag
+- Market saturation timeline
+
+### 5. Alternative Explanations
+What else could explain recent positive trends?
+- Temporary factors vs. structural changes
+- One-time benefits
+- Accounting adjustments
+- Market beta vs. alpha
+
+### Output Format
+```json
+{
+  "devils_advocate": {
+    "contrarian_thesis": "string - strongest bearish argument",
+    "ignored_risks": [
+      {"risk": "string", "why_ignored": "string", "potential_impact": "string"}
+    ],
+    "valuation_concerns": {
+      "current_multiple": "string",
+      "historical_context": "string",
+      "peer_comparison": "string",
+      "embedded_assumptions": "string",
+      "margin_of_safety": "adequate|thin|none"
+    },
+    "timing_issues": [
+      {"issue": "string", "bull_timeline": "string", "realistic_timeline": "string"}
+    ],
+    "alternative_explanations": [
+      {"observation": "string", "bull_explanation": "string", "alternative": "string"}
+    ],
+    "what_would_change_mind": ["string"],
+    "confidence_in_contrarian_view": 0.0-1.0
+  }
+}
+```

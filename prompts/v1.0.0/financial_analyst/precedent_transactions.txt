@@ -1,0 +1,81 @@
+Perform a Precedent Transaction Analysis for {{ticker}} based on the following data:
+
+## Company Profile
+{{company_profile}}
+
+## Industry
+{{industry}}
+
+## Your Task
+Build a precedent transaction analysis to understand M&A valuation benchmarks:
+
+### 1. Identify Relevant Transactions
+Find 3-6 recent M&A transactions in the same industry:
+- Last 3-5 years
+- Similar size (within 50% of target's market cap)
+- Strategic rationale alignment
+- Geographic relevance
+
+### 2. Analyze Transaction Multiples
+For each transaction, extract:
+- Transaction date
+- Transaction value (Enterprise Value)
+- EV/Revenue multiple
+- EV/EBITDA multiple
+- Premium paid (if public target)
+- Strategic rationale
+
+### 3. Adjust for Market Conditions
+- Consider market conditions at time of deal
+- Adjust for interest rate environment
+- Consider strategic vs. financial buyer
+
+### 4. Derive Implied Valuation
+- Apply median transaction multiples
+- Consider control premium (typically 20-30%)
+- Range of values based on deal types
+
+### 5. Assess Strategic Value
+- Synergy potential
+- Defensive value
+- Platform value
+- Technology/IP value
+
+### Output Format
+```json
+{
+  "precedent": {
+    "transactions": [
+      {
+        "date": "YYYY-MM-DD",
+        "target": "string",
+        "acquirer": "string",
+        "ev": number,
+        "revenue": number,
+        "ebitda": number,
+        "ev_revenue": number,
+        "ev_ebitda": number,
+        "premium_paid": number,
+        "rationale": "string"
+      }
+    ],
+    "multiples_summary": {
+      "ev_revenue": {"median": number, "mean": number, "high": number, "low": number},
+      "ev_ebitda": {"median": number, "mean": number, "high": number, "low": number},
+      "premium_paid": {"median": number, "mean": number}
+    },
+    "target_metrics": {
+      "revenue": number,
+      "ebitda": number
+    },
+    "implied_values": {
+      "ev_revenue_median": number,
+      "ev_ebitda_median": number,
+      "control_premium_20": number,
+      "control_premium_30": number
+    },
+    "strategic_considerations": ["string"],
+    "confidence": 0.0-1.0
+  }
+}
+```

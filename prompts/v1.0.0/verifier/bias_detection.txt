@@ -1,0 +1,98 @@
+Perform Bias Detection for {{ticker}} analysis based on the following:
+
+## Analysis Summary
+{{analysis_summary}}
+
+## Original Thesis
+{{original_thesis}}
+
+## Your Task
+Identify cognitive biases that may have influenced the analysis:
+
+### 1. Confirmation Bias
+- Did the analysis seek confirming evidence while ignoring disconfirming evidence?
+- Were contrary viewpoints considered?
+- Was negative news downplayed?
+- Signs to look for:
+  * Only bullish sources cited
+  * Bearish arguments superficially addressed
+  * Negative data points explained away
+
+### 2. Anchoring Bias
+- Did initial price targets or assumptions overly influence the analysis?
+- Was there excessive reliance on analyst consensus?
+- Signs to look for:
+  * Price target too close to current price or consensus
+  * Assumptions clustered around visible benchmarks
+  * Limited sensitivity analysis
+
+### 3. Recency Bias
+- Were recent events given disproportionate weight?
+- Was historical context adequately considered?
+- Signs to look for:
+  * Recent news driving entire thesis
+  * Short-term trends extrapolated
+  * Historical cycles ignored
+
+### 4. Survivorship Bias
+- Were failed competitors or failed strategies considered?
+- Is the analysis looking only at winners?
+- Signs to look for:
+  * Only successful peers compared
+  * Historical failures in the space ignored
+  * Base rates not considered
+
+### 5. Availability Bias
+- Were easily recalled examples overused?
+- Was statistical base rate ignored?
+- Signs to look for:
+  * Vivid anecdotes over data
+  * Recent high-profile cases as primary evidence
+
+### Output Format
+```json
+{
+  "bias_detection": {
+    "confirmation_bias": {
+      "detected": boolean,
+      "severity": 1-5,
+      "evidence": "string",
+      "examples": ["string"],
+      "mitigation_recommendation": "string"
+    },
+    "anchoring_bias": {
+      "detected": boolean,
+      "severity": 1-5,
+      "evidence": "string",
+      "examples": ["string"],
+      "mitigation_recommendation": "string"
+    },
+    "recency_bias": {
+      "detected": boolean,
+      "severity": 1-5,
+      "evidence": "string",
+      "examples": ["string"],
+      "mitigation_recommendation": "string"
+    },
+    "survivorship_bias": {
+      "detected": boolean,
+      "severity": 1-5,
+      "evidence": "string",
+      "examples": ["string"],
+      "mitigation_recommendation": "string"
+    },
+    "availability_bias": {
+      "detected": boolean,
+      "severity": 1-5,
+      "evidence": "string",
+      "examples": ["string"],
+      "mitigation_recommendation": "string"
+    },
+    "overall_bias_risk": {
+      "level": "low|medium|high",
+      "primary_concerns": ["string"],
+      "recommended_actions": ["string"]
+    }
+  }
+}
+```

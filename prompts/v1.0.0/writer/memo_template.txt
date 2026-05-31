@@ -1,0 +1,120 @@
+Generate an Investment Memo for {{ticker}} based on the following analysis:
+
+## All Phase Outputs
+{{all_phase_outputs}}
+
+## Verification Results
+{{verification_results}}
+
+## Your Task
+Write a comprehensive investment memo with the following sections:
+
+### 1. Executive Summary (1 page)
+- **Recommendation**: Buy/Hold/Sell/Watch
+- **Position Size**: Specific % of portfolio
+- **Time Horizon**: Short/Medium/Long term
+- **Key Thesis**: 2-3 sentence investment thesis
+- **Risk Rating**: Low/Medium/High/Very High
+- **Price Target**: Base case with range
+- **Confidence Score**: Overall confidence %
+
+### 2. Investment Thesis (1-2 pages)
+- Core investment argument
+- Key catalysts and timeline
+- Competitive advantages
+- Market opportunity
+- Why this, why now?
+
+### 3. Valuation Analysis (1 page)
+- Summary of DCF, Comps, Precedent
+- Price target derivation
+- Key assumptions
+- Sensitivity analysis
+- Comparison to current price
+
+### 4. Risk Assessment (1 page)
+- Summary of risk matrix
+- Top 3 risks with mitigation
+- Stress test results
+- Risk-adjusted return expectations
+
+### 5. Scenario Analysis (1 page)
+- Bull/Base/Bear summary
+- Probability-weighted expected return
+- Key indicators for each scenario
+- Devil's advocate view
+
+### 6. Catalysts & Timeline
+- Near-term catalysts (0-6 months)
+- Medium-term catalysts (6-18 months)
+- Risk events to monitor
+
+### 7. Appendices
+- Data sources
+- Model assumptions
+- Full risk matrix
+- Disclaimer
+
+### Output Format
+```json
+{
+  "memo": {
+    "metadata": {
+      "ticker": "string",
+      "company_name": "string",
+      "date": "YYYY-MM-DD",
+      "version": "1.0.0",
+      "confidence_score": 0.XX,
+      "analyst": "HeavySwarm Engine",
+      "disclaimer": "This memo is for informational purposes only..."
+    },
+    "executive_summary": {
+      "recommendation": "buy|hold|sell|watch",
+      "position_size": "X% of portfolio",
+      "time_horizon": "string",
+      "key_thesis": "string",
+      "risk_rating": "low|medium|high|very_high",
+      "price_target": {"base": number, "range": {"low": number, "high": number}},
+      "current_price": number,
+      "upside_potential": 0.XX,
+      "confidence": 0.XX
+    },
+    "investment_thesis": {
+      "core_argument": "string (markdown)",
+      "catalysts": [{"event": "string", "timeline": "string", "impact": "high|medium|low"}],
+      "competitive_advantages": ["string"],
+      "market_opportunity": "string"
+    },
+    "valuation_analysis": {
+      "summary": "string (markdown)",
+      "methodologies": {
+        "dcf": {"value": number, "weight": 0.XX},
+        "comps": {"value": number, "weight": 0.XX},
+        "precedent": {"value": number, "weight": 0.XX}
+      },
+      "consensus_target": number,
+      "key_assumptions": ["string"]
+    },
+    "risk_assessment": {
+      "summary": "string (markdown)",
+      "top_risks": [{"risk": "string", "severity": 1-5, "mitigation": "string"}],
+      "stress_test_summary": "string"
+    },
+    "scenario_analysis": {
+      "summary": "string (markdown)",
+      "expected_return": 0.XX,
+      "sharpe_ratio": number,
+      "max_drawdown": 0.XX
+    },
+    "catalysts": {
+      "near_term": [{"event": "string", "date": "string", "impact": "string"}],
+      "medium_term": [{"event": "string", "date": "string", "impact": "string"}]
+    },
+    "appendices": {
+      "data_sources": ["string"],
+      "model_assumptions": ["string"],
+      "glossary": [{"term": "string", "definition": "string"}]
+    }
+  }
+}
+```

@@ -1,0 +1,173 @@
+Define Success Criteria for {{ticker}} Due Diligence:
+
+## Investment Context
+Ticker: {{ticker}}
+Thesis: {{thesis}}
+Time Horizon: {{time_horizon}}
+Risk Tolerance: {{risk_tolerance}}
+Position Size: {{position_size}}%
+Priority: {{priority}}
+
+## Your Task
+Establish clear, measurable success criteria that will determine whether the due diligence process has produced a high-quality, actionable investment recommendation.
+
+### 1. Data Quality Criteria
+
+**Completeness Standards**
+- Minimum 95% of required data points obtained
+- All critical metrics (revenue, margins, cash flow) verified
+- At least 3 independent sources for key claims
+- No single-source dependencies for thesis-critical data
+
+**Accuracy Standards**
+- All financial data cross-referenced with primary sources
+- Calculations verified with reverse-engineering
+- Date stamps on all data points
+- Provenance trail for every major claim
+
+**Timeliness Standards**
+- Financial data within 45 days of latest quarter
+- News and sentiment within 7 days
+- Market data real-time or same-day
+- Analyst estimates current within 30 days
+
+### 2. Analysis Quality Criteria
+
+**Valuation Rigor**
+- At least 2 valuation methodologies applied
+- Sensitivity analysis on key assumptions
+- Clear documentation of assumption sources
+- Margin of safety calculation for entry price
+
+**Risk Assessment Depth**
+- Minimum 5 distinct risks identified
+- Each risk has probability and impact assessment
+- Mitigation strategies for top 3 risks
+- Tail risk scenarios considered
+
+**Scenario Robustness**
+- Bull/Base/Bear scenarios defined
+- Probability sum equals 100% (±5%)
+- Each scenario has clear trigger conditions
+- Expected value calculation across scenarios
+
+### 3. Confidence Thresholds
+
+**Overall Confidence Score**
+- Critical priority: >90% required
+- High priority: >85% required
+- Medium priority: >80% required
+- Low priority: >75% required
+
+**Component Confidence Minimums**
+- Financial data confidence: >95%
+- Valuation confidence: >80%
+- Risk assessment confidence: >85%
+- Thesis validation confidence: >80%
+
+### 4. Decision Readiness Criteria
+
+**Recommendation Clarity**
+- Unambiguous Buy/Hold/Sell/Watch recommendation
+- Specific position size guidance (% of portfolio)
+- Clear entry price or price range
+- Defined stop-loss or exit criteria
+
+**Actionability Standards**
+- Investment thesis expressible in 2 sentences
+- Key catalysts with specific dates
+- Risk monitoring plan defined
+- Time horizon clearly stated
+
+**Documentation Completeness**
+- All sources cited and accessible
+- Methodology documented
+- Assumptions listed and justified
+- Limitations acknowledged
+
+### 5. Quality Gate Checkpoints
+
+**Phase 1 Success (Data Gathering)**
+- All 4 research streams completed
+- Data verification rate >90%
+- No critical data gaps
+
+**Phase 2 Success (Analysis)**
+- All analyst agents completed work
+- Cross-validation performed
+- Devil's advocate challenge addressed
+
+**Phase 3 Success (Synthesis)**
+- Investment memo complete
+- Executive summary approved
+- Trading signal generated
+
+**Phase 4 Success (Quality Review)**
+- Quality Guardian approval
+- All checklist items pass
+- No material anomalies
+
+### 6. Escalation Triggers
+
+**Automatic Escalation Conditions**
+- Position size >10% of portfolio
+- Confidence score 75-85% (borderline)
+- Unusual market conditions detected
+- Potential conflict of interest identified
+- Novel or complex situation
+
+**Rejection Conditions**
+- Confidence score <70%
+- Critical data gaps that cannot be filled
+- Material inconsistencies found
+- Unacceptable risk level
+- Violation of investment constraints
+
+### Output Format
+```json
+{
+  "success_criteria": {
+    "ticker": "string",
+    "priority": "string",
+    "data_quality": {
+      "completeness_rate": 0.0,
+      "accuracy_verification": "string",
+      "max_data_age_days": number,
+      "min_sources_per_claim": number
+    },
+    "analysis_quality": {
+      "min_valuation_methods": number,
+      "min_risks_identified": number,
+      "scenario_probabilities_valid": true|false,
+      "sensitivity_analysis_required": true|false
+    },
+    "confidence_thresholds": {
+      "overall_min": 0.0,
+      "financial_data_min": 0.0,
+      "valuation_min": 0.0,
+      "risk_assessment_min": 0.0,
+      "thesis_validation_min": 0.0
+    },
+    "decision_readiness": {
+      "recommendation_clear": true|false,
+      "position_size_specified": true|false,
+      "entry_price_defined": true|false,
+      "thesis_actionable": true|false
+    },
+    "quality_gates": {
+      "phase_1_required": true|false,
+      "phase_2_required": true|false,
+      "phase_3_required": true|false,
+      "phase_4_required": true|false
+    },
+    "escalation_conditions": ["string"],
+    "rejection_conditions": ["string"],
+    "approval_criteria": {
+      "all_gates_passed": true|false,
+      "confidence_above_threshold": true|false,
+      "no_material_anomalies": true|false,
+      "risk_appropriate": true|false
+    }
+  }
+}
+```

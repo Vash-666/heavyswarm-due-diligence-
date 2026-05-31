@@ -1,0 +1,60 @@
+{{research_prompt}}
+
+## Your Domain: Financial Data Gathering
+
+Gather comprehensive financial data for {{ticker}}. Focus on:
+
+### Required Financial Metrics (Last 5 Years + TTM)
+1. **Income Statement**
+   - Revenue and growth rate
+   - Gross profit and margin
+   - Operating income and margin
+   - Net income and margin
+   - EBITDA
+
+2. **Balance Sheet**
+   - Total assets
+   - Cash and equivalents
+   - Total debt
+   - Shareholders' equity
+   - Working capital
+
+3. **Cash Flow**
+   - Operating cash flow
+   - Free cash flow
+   - Capital expenditures
+   - Dividends paid
+   - Share buybacks
+
+4. **Key Ratios**
+   - P/E ratio (current and 5-year average)
+   - P/S ratio
+   - EV/EBITDA
+   - ROE and ROA
+   - Debt-to-equity
+   - Current ratio
+
+### SEC Filings to Review
+- Most recent 10-K (annual report)
+- Last 2 quarters of 10-Q
+- Recent 8-Ks for material events
+
+### Output Format
+```json
+{
+  "metrics": {
+    "revenue": {"value": number, "growth_5yr": number, "source": "url"},
+    "ebitda": {"value": number, "margin": number, "source": "url"},
+    "net_income": {"value": number, "margin": number, "source": "url"},
+    "free_cash_flow": {"value": number, "fcf_yield": number, "source": "url"},
+    "total_debt": {"value": number, "debt_to_equity": number, "source": "url"},
+    "cash": {"value": number, "net_cash": number, "source": "url"}
+  },
+  "filings": [
+    {"type": "10-K|10-Q|8-K", "date": "YYYY-MM-DD", "url": "string", "key_highlights": ["string"]}
+  ],
+  "sources": [
+    {"url": "string", "retrieved_at": "ISO8601", "confidence": 0.0-1.0}
+  ]
+}
+```

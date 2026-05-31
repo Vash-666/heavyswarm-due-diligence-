@@ -1,0 +1,86 @@
+Perform a Comparable Company Analysis (Comps) for {{ticker}} based on the following data:
+
+## Company Financials
+{{company_financials}}
+
+## Peer Companies
+{{peer_companies}}
+
+## Your Task
+Build a comprehensive comparable company analysis:
+
+### 1. Select Comparable Companies
+- Identify 4-6 truly comparable peers
+- Consider: industry, size, growth profile, margin structure
+- Exclude outliers that would skew multiples
+
+### 2. Calculate Trading Multiples
+For each peer and the target company, calculate:
+- **EV/Revenue** (Enterprise Value / Revenue)
+- **EV/EBITDA** (Enterprise Value / EBITDA)
+- **P/E** (Price / Earnings)
+- **P/S** (Price / Sales)
+- **P/FCF** (Price / Free Cash Flow)
+
+### 3. Analyze Multiple Trends
+- Historical multiple ranges (3-5 years)
+- Current vs. historical averages
+- Premium/discount to peer group
+- Multiple drivers (growth, margins, ROIC)
+
+### 4. Derive Implied Valuation
+- Apply median multiples to target metrics
+- Apply high/low multiples for range
+- Weight different methodologies appropriately
+
+### 5. Consider Qualitative Factors
+- Growth differential
+- Margin differential
+- Risk differential
+- Quality of management
+
+### Output Format
+```json
+{
+  "comps": {
+    "peer_companies": [
+      {
+        "ticker": "string",
+        "ev": number,
+        "revenue": number,
+        "ebitda": number,
+        "net_income": number,
+        "ev_revenue": number,
+        "ev_ebitda": number,
+        "pe": number,
+        "ps": number
+      }
+    ],
+    "multiples_summary": {
+      "ev_revenue": {"median": number, "mean": number, "high": number, "low": number},
+      "ev_ebitda": {"median": number, "mean": number, "high": number, "low": number},
+      "pe": {"median": number, "mean": number, "high": number, "low": number},
+      "ps": {"median": number, "mean": number, "high": number, "low": number}
+    },
+    "target_valuation": {
+      "revenue": number,
+      "ebitda": number,
+      "net_income": number
+    },
+    "implied_values": {
+      "ev_revenue_median": number,
+      "ev_ebitda_median": number,
+      "pe_median": number,
+      "ps_median": number,
+      "weighted_average": number
+    },
+    "premium_discount": {
+      "ev_revenue": number,
+      "ev_ebitda": number,
+      "pe": number
+    },
+    "justification": "string explaining why target deserves premium/discount",
+    "confidence": 0.0-1.0
+  }
+}
+```

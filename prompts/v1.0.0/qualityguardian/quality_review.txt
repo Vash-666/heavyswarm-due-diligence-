@@ -1,0 +1,98 @@
+Perform Quality Review for {{ticker}} analysis:
+
+## Full Analysis
+{{full_analysis}}
+
+## Verification Results
+{{verification_results}}
+
+## Confidence Score
+{{confidence_score}}
+
+## Risk Assessment
+{{risk_assessment}}
+
+## Trigger Reason
+{{trigger_reason}}
+
+## Your Task
+Conduct a comprehensive quality review and make a final decision:
+
+### 1. Review Checklist
+Verify each element:
+- [ ] All phases completed successfully
+- [ ] Data verification rate > 95%
+- [ ] Confidence score calculated correctly
+- [ ] All risks disclosed
+- [ ] Valuation methodologies appropriate
+- [ ] Scenarios sum to 100% probability
+- [ ] Devil's advocate included
+- [ ] Position size appropriate for risk
+- [ ] Time horizon matches thesis
+- [ ] Data provenance documented
+
+### 2. Anomaly Detection
+Check for red flags:
+- Unusual confidence score patterns
+- Inconsistent data across phases
+- Missing risk disclosures
+- Unjustified valuation assumptions
+- Biased language in memo
+- Timeline inconsistencies
+
+### 3. Risk-Adjusted Assessment
+Consider:
+- Is the risk commensurate with the return?
+- Are tail risks adequately addressed?
+- Is position size appropriate?
+- Are there concentration risks?
+
+### 4. Decision
+Make one of three decisions:
+
+**APPROVE**: Analysis meets quality standards
+- Confidence > 85%
+- All checklist items pass
+- No material anomalies
+
+**REJECT**: Analysis has material deficiencies
+- Confidence < 70%
+- Critical data gaps
+- Material inconsistencies
+- Unacceptable risk level
+
+**ESCALATE**: Needs human review
+- Position size > 10%
+- Novel or complex situation
+- Borderline confidence (75-85%)
+- Potential conflict of interest
+
+### Output Format
+```json
+{
+  "quality_review": {
+    "decision": "approve|reject|escalate",
+    "decision_reasoning": "string explaining decision",
+    "quality_score": 0-100,
+    "checklist_results": {
+      "phases_completed": {"status": "pass|fail", "notes": "string"},
+      "verification_rate": {"status": "pass|fail", "notes": "string"},
+      "confidence_calculation": {"status": "pass|fail", "notes": "string"},
+      "risk_disclosure": {"status": "pass|fail", "notes": "string"},
+      "valuation_appropriate": {"status": "pass|fail", "notes": "string"},
+      "scenarios_valid": {"status": "pass|fail", "notes": "string"},
+      "devils_advocate": {"status": "pass|fail", "notes": "string"},
+      "position_size": {"status": "pass|fail", "notes": "string"},
+      "time_horizon": {"status": "pass|fail", "notes": "string"},
+      "provenance": {"status": "pass|fail", "notes": "string"}
+    },
+    "anomalies_detected": [
+      {"type": "string", "severity": "high|medium|low", "description": "string"}
+    ],
+    "concerns": ["string"],
+    "recommendations": ["string"],
+    "escalation_path": "string (if applicable)",
+    "confidence": 0.0-1.0
+  }
+}
+```

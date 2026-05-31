@@ -1,0 +1,188 @@
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # API Service
+  # ===========================================================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://diligence:diligence@db:5432/diligence
+      - REDIS_URL=redis://redis:6379/0
+      - LOG_LEVEL=INFO
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - heavyswarm-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ===========================================================================
+  # Worker Service (Background Processing)
+  # ===========================================================================
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    command: ["python", "-m", "heavyswarm.worker"]
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://diligence:diligence@db:5432/diligence
+      - REDIS_URL=redis://redis:6379/0
+      - LOG_LEVEL=INFO
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - heavyswarm-network
+    restart: unless-stopped
+    deploy:
+      replicas: 3
+
+  # ===========================================================================
+  # Database Migration Service
+  # ===========================================================================
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://diligence:diligence@db:5432/diligence
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - heavyswarm-network
+    restart: "no"
+
+  # ===========================================================================
+  # PostgreSQL Database
+  # ===========================================================================
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=diligence
+      - POSTGRES_USER=diligence
+      - POSTGRES_PASSWORD=diligence
+    ports:
+      - "5432:5432"
+    networks:
+      - heavyswarm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diligence -d diligence"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ===========================================================================
+  # Redis Cache
+  # ===========================================================================
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - heavyswarm-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # ===========================================================================
+  # Development Services
+  # ===========================================================================
+  
+  # Test Database
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=diligence_test
+      - POSTGRES_USER=diligence
+      - POSTGRES_PASSWORD=diligence
+    ports:
+      - "5433:5432"
+    networks:
+      - heavyswarm-network
+    tmpfs:
+      - /var/lib/postgresql/data
+
+  # Test Redis
+  test-redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    networks:
+      - heavyswarm-network
+
+  # Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - heavyswarm-network
+    profiles:
+      - monitoring
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana:/etc/grafana/provisioning:ro
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - heavyswarm-network
+    profiles:
+      - monitoring
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  heavyswarm-network:
+    driver: bridge
